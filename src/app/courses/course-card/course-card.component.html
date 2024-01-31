@@ -3,9 +3,14 @@
   <div class="course-title">
     {{course.description}}
   </div>
-
-  @if(course.iconUrl) {
+  @if(course.id == 1) {
+    <h2>Course with ID 1 detected</h2>
+  } 
+  @else if(course.iconUrl) {
   <img [src]="course.iconUrl" alt="Angular logo" width="300">
+  }
+  @else {
+    <h2>No image available</h2>
   }
 
 
