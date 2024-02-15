@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
+  Component, computed,
   DoCheck,
   Inject,
   Injector,
@@ -35,12 +35,20 @@ export class AppComponent {
 
     counter = signal(0);
 
+    derivedCounter = computed(() => {
+
+      const counter = this.counter();
+
+      return counter * 10;
+
+    });
+
     constructor() {
 
     }
 
     increment() {
-      this.counter.set(this.counter() + 1);
+      this.counter.update(value => value + 1);
     }
 
 }
