@@ -40,7 +40,7 @@ export class AppComponent {
     }
 
     increment() {
-      this.counter.set(this.counter() + 1);
+      this.counter.update(value => value + 1);
     }
 
 }
