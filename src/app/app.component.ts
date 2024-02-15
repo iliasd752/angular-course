@@ -35,12 +35,29 @@ export class AppComponent {
 
     counter = signal(0);
 
+    course = signal({
+      id: 1,
+      title: "Angular For Beginners"
+    });
+
+    courses = signal([
+      "Angular For Beginners",
+      "Reactive Angular Course"
+    ]);
+
     constructor() {
 
     }
 
     increment() {
-      this.counter.set(this.counter() + 1);
+      this.counter.update(val => val + 1);
+
+      this.course.set({
+        id: 1,
+        title: "Hello World"
+      });
+
+      this.courses.update(courses => [...courses, "Angular Core Deep Dive"]);
     }
 
 }

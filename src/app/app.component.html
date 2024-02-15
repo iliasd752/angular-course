@@ -11,6 +11,10 @@
 
     <div>Counter value: {{ counter() }}</div>
 
+    <div>Course Title: {{ course().title }}</div>
+
+    <div>Courses: {{ courses().join(", ") }}</div>
+
     <button (click)="increment()">Increment</button>
   </div>
 
