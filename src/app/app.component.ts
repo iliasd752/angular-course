@@ -35,11 +35,20 @@ export class AppComponent {
 
     counter = signal(0);
 
+    multiplier: number = 0;
+
     derivedCounter = computed(() => {
 
       const counter = this.counter();
 
-      return counter * 10;
+      if (this.multiplier >= 10) {
+        return counter * 10;
+      }
+      else {
+        return 0;
+      }
+
+
 
     });
 
@@ -51,4 +60,7 @@ export class AppComponent {
       this.counter.update(value => value + 1);
     }
 
+  incrementMultiplier() {
+    this.multiplier++;
+  }
 }
