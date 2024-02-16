@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
+  Component, computed,
   DoCheck,
   Inject,
   Injector,
@@ -18,6 +18,7 @@ import {CourseTitleComponent} from './course-title/course-title.component';
 import {CourseCardComponent} from './courses/course-card/course-card.component';
 import {CourseImageComponent} from './courses/course-image/course-image.component';
 import {NgForOf} from '@angular/common';
+import {CounterService} from "./services/counter.service";
 
 
 @Component({
@@ -33,14 +34,22 @@ import {NgForOf} from '@angular/common';
 })
 export class AppComponent {
 
-    counter = signal(0);
+    derivedCounter = computed(() => {
 
-    constructor() {
+      const counter = this.counterService.counter();
+
+      return counter * 10;
+
+    });
+
+    constructor(
+      public counterService: CounterService
+    ) {
 
     }
 
     increment() {
-      this.counter.update(value => value + 1);
+      this.counterService.increment();
     }
 
 }
