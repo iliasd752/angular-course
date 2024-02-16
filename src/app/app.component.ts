@@ -1,8 +1,8 @@
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
-  DoCheck,
+  Component, computed,
+  DoCheck, effect,
   Inject,
   Injector,
   OnInit,
@@ -35,12 +35,27 @@ export class AppComponent {
 
     counter = signal(0);
 
+    derivedCounter = computed(() => {
+      const counter = this.counter();
+
+      return counter * 10;
+    });
+
     constructor() {
 
+      effect(() => {
+
+        const counterValue = this.counter();
+
+        const derivedCounterValue = this.derivedCounter();
+
+        console.log(` counter: ${counterValue} derived counter: ${derivedCounterValue} `);
+
+      });
     }
 
     increment() {
-      this.counter.set(this.counter() + 1);
+      this.counter.update(value => value + 1);
     }
 
 }
