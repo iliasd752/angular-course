@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component, computed,
-  DoCheck, effect,
+  DoCheck, effect, EffectRef,
   Inject,
   Injector,
   OnInit,
@@ -41,9 +41,16 @@ export class AppComponent {
       return counter * 10;
     });
 
+    effectRef: EffectRef;
     constructor() {
 
-      effect(() => {
+      this.effectRef = effect((onCleanup) => {
+
+        onCleanup(() => {
+
+          console.log(`Cleanup occurred`);
+
+        })
 
         const counterValue = this.counter();
 
@@ -51,6 +58,8 @@ export class AppComponent {
 
         console.log(` counter: ${counterValue} derived counter: ${derivedCounterValue} `);
 
+      }, {
+        manualCleanup: true
       });
     }
 
@@ -58,4 +67,7 @@ export class AppComponent {
       this.counter.update(value => value + 1);
     }
 
+  onCleanup() {
+    this.effectRef.destroy();
+  }
 }
