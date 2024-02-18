@@ -3,12 +3,12 @@ import {
   Attribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component, computed, DoCheck,
+  Component, computed, DoCheck, effect,
   EventEmitter, input,
   Input, OnChanges,
   OnDestroy,
   OnInit,
-  Output
+  Output, SimpleChanges
 } from '@angular/core';
 import {Course} from '../../model/course';
 import {CoursesService} from '../courses.service';
@@ -26,11 +26,11 @@ import {CommonModule} from '@angular/common';
   standalone: true
 
 })
-export class CourseCardComponent implements  OnInit {
+export class CourseCardComponent {
 
     course = input<Course>();
 
-    @Output('courseChanged')
+  @Output('courseChanged')
     courseEmitter = new EventEmitter<Course>();
 
 
@@ -39,14 +39,13 @@ export class CourseCardComponent implements  OnInit {
     constructor(private coursesService: CoursesService,
                 @Attribute('type') private type: string) {
 
+      effect(() => {
+
+        console.log(`New course value: `, this.course());
+
+      })
 
     }
-
-    ngOnInit() {
-
-    }
-
-
 
     onTitleChanged(newTitle: string) {
 
