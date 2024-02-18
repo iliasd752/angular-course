@@ -28,7 +28,9 @@ import {CommonModule} from '@angular/common';
 })
 export class CourseCardComponent {
 
-    course = input<Course>();
+    course = input<Course>(null, {
+      alias: "tutorial"
+    });
 
   @Output('courseChanged')
     courseEmitter = new EventEmitter<Course>();
